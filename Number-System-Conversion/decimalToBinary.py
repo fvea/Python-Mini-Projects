@@ -3,7 +3,8 @@
 
 def decToBi(dec):
     ''' 
-    Returns the Binary Representation of the given decimal. 
+    This function uses subsequent division to solve the 
+    Binary Representation of the given decimal.
     '''
     if dec == 1:
         return '1'
