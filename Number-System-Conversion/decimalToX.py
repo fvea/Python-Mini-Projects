@@ -27,13 +27,26 @@ def decToBi(dec, _havefPart=False):
     else:
         # Case if the function is converting the integer part
         # to its binary rep.
-        if dec == 1:
+        if dec < 2:
             return '1'
         else:
             q = dec // 2
-            r = str(dec % 2)
-            return decToBi(q) + r
+            r = dec % 2
+            return decToBi(q) + str(r)
+
+def decToOct(dec):
+    """
+    This function uses sucessive division to return the 
+    Octal Representation of the given decimal.
+    """
+    if dec < 8:
+        return str(dec)
+    else:
+        q = dec // 8
+        r = dec % 8
+        return decToOct(q) + str(r)
+
 
 if __name__ == '__main__':
-    ex = 21.1
-    print(decToBi(ex))
+    ex = 8
+    print(decToOct(ex))
