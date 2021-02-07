@@ -34,19 +34,39 @@ def decToBi(dec, _havefPart=False):
             r = dec % 2
             return decToBi(q) + str(r)
 
-def decToOct(dec):
+def decToOct(dec, _havefPart=False):
     """
     This function uses sucessive division to return the 
     Octal Representation of the given decimal.
     """
-    if dec < 8:
-        return str(dec)
+    # Checks wether the given dec have fractional part.
+    fractionPart = dec - int(dec)
+    if fractionPart != 0 and not _havefPart:
+        # The fractional part also need to be converted.
+        # The octal rep. for int part is seperated in
+        # octal rep. of fractional part with '.'
+        return decToOct(int(dec)) + '.' + decToOct(fractionPart, _havefPart=True)
+
+    if _havefPart:
+        # Case if the function is converting the fractional 
+        # part to its octal rep.      
+        res = dec * 8
+        fPart = res - int(res)
+        if fPart == 0:
+            return str(int(res))
+        else:
+            return str(int(res)) + decToOct(fPart, _havefPart=True)
     else:
-        q = dec // 8
-        r = dec % 8
-        return decToOct(q) + str(r)
+        # Case if the function is converting the integer part
+        # to its octal rep.
+        if dec < 8:
+            return str(dec)
+        else:
+            q = dec // 8
+            r = dec % 8
+            return decToOct(q) + str(r)
 
 
 if __name__ == '__main__':
-    ex = 8
+    ex = 58.25
     print(decToOct(ex))
