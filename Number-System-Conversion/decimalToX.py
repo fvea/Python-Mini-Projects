@@ -50,6 +50,28 @@ def decToOct(dec):
     
     return intOctRep
 
+
+def decToHex(dec):
+    """
+    Converts given decimal to its hexadecimal representaion.
+    """
+    lettersRep = {
+        10: 'A',
+        11: 'B',
+        12: 'C',
+        13: 'D',
+        14: 'E',
+        15: 'F'
+    }
+    hexRep = ''
+    while dec > 0:
+        remainder = dec % 16
+        if remainder > 9:
+            remainder = lettersRep[remainder]
+        hexRep = str(remainder) + hexRep
+        dec = dec // 16
+    return hexRep
+
 if __name__ == '__main__':
-    ex = 58.25
-    print(decToOct(ex))
+    ex = 58
+    print(decToHex(ex))
