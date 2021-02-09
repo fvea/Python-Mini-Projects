@@ -1,80 +1,55 @@
 #! python3
 # decimalToBinary.py
 
-def decToBi(dec, _havefPart=False):
-    ''' 
-    This function uses sucessive division to return the 
-    Binary Representation of the given decimal.
-    '''
-    # Checks wether the given dec have fractional part.
-    fractionPart = dec - int(dec)
-    if fractionPart != 0 and not _havefPart:
-        return decToBi(int(dec)) + '.' + decToBi(fractionPart, _havefPart=True)
-
-    if _havefPart: 
-        res = dec * 2
-        fPart = res - int(res)
-        if fPart == 0:
-            return '1'
-        else:
-            return str(int(res)) + decToBi(fPart, _havefPart=True)
-    else:
-        if dec < 2:
-            return '1'
-        else:
-            q = dec // 2
-            r = dec % 2
-            return decToBi(q) + str(r)
-
-def decToOct(dec, _havefPart=False):
+def decToBi(dec):
     """
-    This function uses sucessive division to return the 
-    Octal Representation of the given decimal.
+    Converts given decimal to its binary representaion.
     """
-    # Checks wether the given dec have fractional part.
-    fractionPart = dec - int(dec)
-    if fractionPart != 0 and not _havefPart:
-        return decToOct(int(dec)) + '.' + decToOct(fractionPart, _havefPart=True)
 
-    if _havefPart:    
-        res = dec * 8
-        fPart = res - int(res)
-        if fPart == 0:
-            return str(int(res))
-        else:
-            return str(int(res)) + decToOct(fPart, _havefPart=True)
-    else:
-        if dec < 8:
-            return str(dec)
-        else:
-            q = dec // 8
-            r = dec % 8
-            return decToOct(q) + str(r)
-
-def decToBiITR(dec):
-
-    intBiRep = ''       # Binary Rep. of integer part of the decimal.
-    fBiRep = ''         # Binary Rep. of fractional part of the decimal.
+    intBiRep = ''                                   # Binary Rep. of integer part of the decimal.
+    fBiRep = ''                                     # Binary Rep. of fractional part of the decimal.
 
     intDec = int(dec)
     fpart = dec - intDec
-    if fpart != 0:
-        while fpart != 0:
+    if fpart != 0:                                  # Converts the fractional part of the decimal
+        while fpart != 0:                           # to its equivalent binary representation.
             res = fpart * 2
             fBiRep += str(int(res))
             fpart = res - int(res)
 
-    while intDec > 0:
-        intBiRep = str(intDec % 2) + intBiRep
+    while intDec > 0:                               # Convert the integer part of the decimal to
+        intBiRep = str(intDec % 2) + intBiRep       # its equivalent binary representation.
         intDec = intDec // 2
     
-    if fBiRep:
+    if fBiRep:                                      
         return intBiRep + '.' + fBiRep
     return intBiRep
+
+
+def decToOct(dec):
+    """
+    Converts given decimal to its octal representaion.
+    """
+    intOctRep = ''                                   # Octal Rep. of integer part of the decimal.
+    fOctRep = ''                                     # Octal Rep. of fractional part of the decimal.
+
+    intDec = int(dec)
+    fpart = dec - intDec
+    if fpart != 0:                                   # Converts the fractional part of the decimal
+        while fpart != 0:                            # to its equivalent binary representation.
+            res = fpart * 8
+            fOctRep += str(int(res))
+            fpart = res - int(res)
+
+    while intDec > 0:                                # Convert the integer part of the decimal to
+        intOctRep = str(intDec % 8) + intOctRep      # its equivalent octal representation.
+        intDec = intDec // 8
     
-
-
+    if fOctRep:  
+        return intOctRep + '.' + fOctRep
+    
+    return intOctRep
 
 if __name__ == '__main__':
     ex = 58.25
-    print(decToBiITR(ex))
+    print(decToOct(ex))
