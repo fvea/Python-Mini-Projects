@@ -63,15 +63,32 @@ def decToHex(dec):
         14: 'E',
         15: 'F'
     }
-    hexRep = ''
-    while dec > 0:
-        remainder = dec % 16
+
+    intHexRep = ''
+    fHexRep = ''
+
+    intDec = int(dec)
+    fpart = dec - intDec
+    if fpart != 0:                                   # Converts the fractional part of the decimal
+        while fpart != 0:                            # to its equivalent binary representation.
+            res = fpart * 16
+            if res > 9:
+                fHexRep += lettersRep[int(res)]
+            else:
+                fHexRep += str(int(res))
+            fpart = res - int(res)
+
+    while intDec > 0:
+        remainder = intDec % 16
         if remainder > 9:
             remainder = lettersRep[remainder]
-        hexRep = str(remainder) + hexRep
-        dec = dec // 16
-    return hexRep
+        intHexRep = str(remainder) + intHexRep
+        intDec = intDec // 16
+
+    if fHexRep:
+        return intHexRep + '.' + fHexRep
+    return intHexRep
 
 if __name__ == '__main__':
-    ex = 58
+    ex = 58.25
     print(decToHex(ex))
