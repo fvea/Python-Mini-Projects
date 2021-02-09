@@ -6,18 +6,12 @@ def decToBi(dec, _havefPart=False):
     This function uses sucessive division to return the 
     Binary Representation of the given decimal.
     '''
-
     # Checks wether the given dec have fractional part.
     fractionPart = dec - int(dec)
     if fractionPart != 0 and not _havefPart:
-        # The fractional part also need to be converted.
-        # The binary rep. for int part is seperated in
-        # binary rep. of fractional part with '.'
         return decToBi(int(dec)) + '.' + decToBi(fractionPart, _havefPart=True)
 
-    if _havefPart:
-        # Case if the function is converting the fractional 
-        # part to its binary rep.      
+    if _havefPart: 
         res = dec * 2
         fPart = res - int(res)
         if fPart == 0:
@@ -25,8 +19,6 @@ def decToBi(dec, _havefPart=False):
         else:
             return str(int(res)) + decToBi(fPart, _havefPart=True)
     else:
-        # Case if the function is converting the integer part
-        # to its binary rep.
         if dec < 2:
             return '1'
         else:
@@ -42,14 +34,9 @@ def decToOct(dec, _havefPart=False):
     # Checks wether the given dec have fractional part.
     fractionPart = dec - int(dec)
     if fractionPart != 0 and not _havefPart:
-        # The fractional part also need to be converted.
-        # The octal rep. for int part is seperated in
-        # octal rep. of fractional part with '.'
         return decToOct(int(dec)) + '.' + decToOct(fractionPart, _havefPart=True)
 
-    if _havefPart:
-        # Case if the function is converting the fractional 
-        # part to its octal rep.      
+    if _havefPart:    
         res = dec * 8
         fPart = res - int(res)
         if fPart == 0:
@@ -57,8 +44,6 @@ def decToOct(dec, _havefPart=False):
         else:
             return str(int(res)) + decToOct(fPart, _havefPart=True)
     else:
-        # Case if the function is converting the integer part
-        # to its octal rep.
         if dec < 8:
             return str(dec)
         else:
@@ -66,7 +51,30 @@ def decToOct(dec, _havefPart=False):
             r = dec % 8
             return decToOct(q) + str(r)
 
+def decToBiITR(dec):
+
+    intBiRep = ''       # Binary Rep. of integer part of the decimal.
+    fBiRep = ''         # Binary Rep. of fractional part of the decimal.
+
+    intDec = int(dec)
+    fpart = dec - intDec
+    if fpart != 0:
+        while fpart != 0:
+            res = fpart * 2
+            fBiRep += str(int(res))
+            fpart = res - int(res)
+
+    while intDec > 0:
+        intBiRep = str(intDec % 2) + intBiRep
+        intDec = intDec // 2
+    
+    if fBiRep:
+        return intBiRep + '.' + fBiRep
+    return intBiRep
+    
+
+
 
 if __name__ == '__main__':
     ex = 58.25
-    print(decToOct(ex))
+    print(decToBiITR(ex))
