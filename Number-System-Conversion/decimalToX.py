@@ -33,5 +33,18 @@ def decToX(decimal, divisor):
     return xRep
 
 if __name__ == '__main__':
-    ex = 58.25
-    print(decToX(decimal=ex, divisor=2))
+    # Test Case
+    while True:
+        print('Press Ctrl+C to exit...\n')
+        print('Enter your decimal:')
+        decimal = float(input())
+        print('Convert to (base2/base8/base16):')
+        convertTo = input()
+        if convertTo == 'base2':
+            print(f'{decimal} is {decToX(decimal, divisor=2)} in base2.')
+        elif convertTo == 'base8':
+            print(f'{decimal} is {decToX(decimal, divisor=8)} in base8.')
+        else:
+            print(f'{decimal} is {decToX(decimal, divisor=16)} in base16.')
+        print()
+
