@@ -12,3 +12,18 @@ datePattern = re.compile(r"""
     ((19|20)\d\d)           # four digits for the year.
     (.*?)$
     """, re.VERBOSE)
+
+# Loop over the files in the working directory.
+for amerFileName in os.listdir('.'):
+    mo = datePattern.search(amerFileName)
+
+    # Skip files w/o a date
+    if mo is None:
+        continue
+
+    # Get the different parts of the filename.
+    beforePart = mo.group(1)
+    monthPart = mo.group(2)
+    dayPart = mo.group(4)
+    yearPart = mo.group(6)
+    afterPart = mo.group(8)
