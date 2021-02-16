@@ -4,6 +4,9 @@
 
 import shutil, os, re
 
+# Set directory to look for.
+absWorkingDir = os.path.abspath(r'.\AmericanDate-To-EuropeanDate')
+
 # Create a regex that matches files with American date format.
 datePattern = re.compile(r"""
     ^(.*?)                  # all text before the date.
@@ -14,7 +17,7 @@ datePattern = re.compile(r"""
     """, re.VERBOSE)
 
 # Loop over the files in the working directory.
-for amerFileName in os.listdir('.'):
+for amerFileName in os.listdir(absWorkingDir):
     mo = datePattern.search(amerFileName)
 
     # Skip files w/o a date
@@ -33,11 +36,10 @@ for amerFileName in os.listdir('.'):
         yearPart + afterPart
 
     # Get the full, absolute file paths.
-    absWorkingDir = os.path.abspath('.')
     amerFileName = os.path.join(absWorkingDir, amerFileName)
     euroFilename = os.path.join(absWorkingDir, euroFilename)
 
     # Rename the files.
     print(f'Renaming "{amerFileName} to "{euroFilename}"...')
-    shutil.move(amerFileName, euroFilename)
+    # shutil.move(amerFileName, euroFilename)       # uncomment after testing.
 
