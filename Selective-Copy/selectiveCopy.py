@@ -25,14 +25,12 @@ def selectiveCopy(folder, destinationFolder):
     for foldername, subfolders, filenames in os.walk(folder):
         for filename in filenames:
             if filename.endswith('.txt'):
-                print(f"""Copying {os.path.join(foldername, filename)}
-                    to {os.path.join(destinationFolder, filename)}...""")
-                shutil.copy(folder, destinationFolder)
-    
+                shutil.copy(os.path.join(folder, filename), destinationFolder)
     print('DONE.')
 
 if __name__ == '__main__':
+    # Test Case
     from pathlib import Path
-    path = Path.home()
+    path = Path.cwd()
     selectiveCopy(path / 'some_folder', path / 'some_folder_copy')
 
