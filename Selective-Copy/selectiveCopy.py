@@ -11,7 +11,28 @@
 #   4. walk to the given path folder.
 #   5. if the current filename in current folder ends with .txt extension, copy it to destination folder.
 
+import os, shutil
 
+def selectiveCopy(folder, destinationFolder):
+    """
+    Copies files with the .txt extension in a given path folder 
+    to given destination folder.
+    """
+    # Make sure each folder is absolute.
+    folder = os.path.abspath(folder)
+    destinationFolder = os.path.abspath(destinationFolder)
 
-def selectiveCopy(path, destination):
-    pass
+    for foldername, subfolders, filenames in os.walk(folder):
+        for filename in filenames:
+            if filename.endswith('.txt'):
+                print(f"""Copying {os.path.join(foldername, filename)}
+                    to {os.path.join(destinationFolder, filename)}...""")
+                shutil.copy(folder, destinationFolder)
+    
+    print('DONE.')
+
+if __name__ == '__main__':
+    from pathlib import Path
+    path = Path.home()
+    selectiveCopy(path / 'some_folder', path / 'some_folder_copy')
+
