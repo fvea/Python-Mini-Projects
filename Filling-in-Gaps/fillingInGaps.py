@@ -5,4 +5,19 @@
 # and spam003.txt but no spam002.txt). The program renameS all the later 
 # files to close this gap.
 
+# Logic:
+#   1. Create Regex pattern for spam00x.txt
+#   2. Set the starting number, which is 1.
+#   3. Loop through the files in the given folder.
+#   4. if the current filename matched the Regex:
+#       4.1 fetch the number part
+#       4.2 if the number part is the not the same with 
+#           the current starting number, break
+#   5. Loop trough the files in the given folder.
+#   6. if the current filename matched the Regex:
+#       6.1 fetch the number part
+#       6.2 if the number part is greater than the starting number:
+#           6.2.1 copy the current file to other location and rename it with the current starting number.
+#       6.3 else copy the current file to other location.
+
 
