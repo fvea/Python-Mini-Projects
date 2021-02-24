@@ -23,9 +23,51 @@
 import os, re, shutil
 
 REGEX = re.compile(r'''
-    ^spam               # the prefix spam
-    (0){,2}                # zero to two intances of 0's
-    (\d)*                # number-part
-    (.txt)              # extension-part
+    ^(spam)                # the prefix spam
+    (0){,2}              # zero to two intances of 0's
+    (\d)+                # number-part
+    (.txt)               # extension-part
     $
     ''', re.VERBOSE)
+
+def fillInGaps(folder):
+    '''
+    Fill in's missing gaps in numbered text file names.
+    '''
+    folder = os.path.abspath(folder)
+    filenames = os.listdir(folder)
+
+    number = 1
+    for filename in filenames:
+        mo = REGEX.search(filename)
+        if mo is not None:
+            numberPart = int(mo.group(3))
+            if numberPart != number: 
+                break
+        else: 
+            continue
+        number = number + 1
+    print(number)
+    for filename in filenames:
+        mo = REGEX.search(filename)
+        if mo is not None:
+            numberPart = int(mo.group(3))
+            if numberPart > number:
+                newFileName = mo.group(1) + mo.group(2) + str(number) + mo.group(4)
+                print(f'Renaming {mo.group()} to {newFileName}')
+                shutil.copy(os.path.join(folder,newFileName), os.getcwd())
+                number += 1
+            else:
+                shutil.copy(os.path.join(folder, filename), os.getcwd())
+    
+        
+    print('DONE.')
+
+
+if __name__ == '__main__':
+    folder = r'C:\Users\fvea\Documents'
+    fillInGaps(folder)
+
+
+
+
