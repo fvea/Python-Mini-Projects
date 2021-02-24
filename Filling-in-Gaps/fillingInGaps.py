@@ -5,21 +5,6 @@
 # and spam003.txt but no spam002.txt). The program renameS all the later 
 # files to close this gap.
 
-# Logic:
-#   1. Create Regex pattern for spam00x.txt
-#   2. Set the starting number, which is 1.
-#   3. Loop through the files in the given folder.
-#   4. if the current filename matched the Regex:
-#       4.1 fetch the number part
-#       4.2 if the number part is the not the same with 
-#           the current starting number, break
-#   5. Loop trough the files in the given folder.
-#   6. if the current filename matched the Regex:
-#       6.1 fetch the number part
-#       6.2 if the number part is greater than the starting number:
-#           6.2.1 copy the current file to other location and rename it with the current starting number.
-#       6.3 else copy the current file to other location.
-
 import os, re, shutil
 
 REGEX = re.compile(r'''
@@ -34,17 +19,17 @@ def fillInGaps(folder):
     '''
     Fill in's missing gaps in numbered text file names.
     '''
-    folder = os.path.abspath(folder)
+    folder = os.path.abspath(folder)                # Make sure the path is absolute.
     filenames = os.listdir(folder)
     print(filenames)
-    number = 1
+    number = 1                                      # Starting number.
     for filename in filenames:
         mo = REGEX.search(filename)
-        if mo is None:
+        if mo is None:                              # Ignore files that is not a match to default filename.
             continue
         numberPart = int(mo.group(3))
         print(numberPart)
-        if numberPart > number:
+        if numberPart > number:                     # Rename files with their number part greater than the current number.
             newFileName = mo.group(1) + mo.group(2) + str(number) + mo.group(4)
             print(f'Renaming {filename} to {newFileName}')
             shutil.copy(os.path.join(folder, filename), os.path.join(os.getcwd(), newFileName))
