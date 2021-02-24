@@ -20,4 +20,12 @@
 #           6.2.1 copy the current file to other location and rename it with the current starting number.
 #       6.3 else copy the current file to other location.
 
+import os, re, shutil
 
+REGEX = re.compile(r'''
+    ^spam               # the prefix spam
+    (0){,2}                # zero to two intances of 0's
+    (\d)*                # number-part
+    (.txt)              # extension-part
+    $
+    ''', re.VERBOSE)
