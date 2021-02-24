@@ -55,7 +55,7 @@ def fillInGaps(folder):
             if numberPart > number:
                 newFileName = mo.group(1) + mo.group(2) + str(number) + mo.group(4)
                 print(f'Renaming {mo.group()} to {newFileName}')
-                shutil.copy(os.path.join(folder,newFileName), os.getcwd())
+                shutil.copy(os.path.join(folder, filename), os.path.join(os.getcwd(), newFileName))
                 number += 1
             else:
                 shutil.copy(os.path.join(folder, filename), os.getcwd())
