@@ -17,3 +17,9 @@ def boxPrint(symbol, width, height):
         print(symbol + (' ' * (width-2)) + symbol)
     print(symbol * width)
 
+if __name__ == '__main__':
+    for sym, w, h in (('*', 4, 4), ('0', 20, 5), ('x', 1, 3), ('ZZ', 3, 3)):
+        try:
+            boxPrint(sym, w, h)
+        except Exception as err:
+            print(f'An exception happened: {str(err)}')
