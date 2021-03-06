@@ -4,7 +4,7 @@
 import bs4, requests, webbrowser, sys
 
 print('Searching...')            # Display text while downloading the search result page.
-res = requests.get('https://pypi.org/search/?q=' + sys.argv[1:])
+res = requests.get('https://pypi.org/search/?q=' + ' '.join(sys.argv[1:]))
 res.raise_for_status()
 
 # Retrieve top search result links.
