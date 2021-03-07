@@ -5,14 +5,15 @@
 import os, sys, shelve, webbrowser
 
 URL = 'https://www13.9anime.to/watch/one-piece.ov8/ep-'
-shelfPath = os.path.join(os.getcwd, 'Opening-OP-Eps')
+shelfPath = os.path.join(os.getcwd(), r'Python-Mini-Projects\Opening-OP-Eps')
 shelfFileName = 'currentEps'
 
 def updateShelfFile(eps):
+    eps = str(int(eps) + 1)
     with shelve.open(os.path.join(shelfPath, shelfFileName)) as db:
         db['currentEps'] = eps
 
-def getEps(eps):
+def getEps():
     with shelve.open(os.path.join(shelfPath, shelfFileName)) as db:
         currentEps = db['currentEps']
     return currentEps
@@ -20,9 +21,10 @@ def getEps(eps):
 def main():
     if len(sys.argv) > 1:
         eps = ' '.join(sys.argv[1:])
+        del sys.argv[1:]
     else:
         eps = getEps()
-    updateShelfFile(str(int(eps) + 1))
+    updateShelfFile(eps)
     
     nextEpsURL = URL + eps
     print('Opening {}'.format(nextEpsURL))
