@@ -18,12 +18,13 @@ edgeBrowser.get('https://outlook.live.com/mail/')       # Open the browser to ou
 time.sleep(2)
 
 # Sign-in to my default account.
-signInButton = edgeBrowser.find_element_by_css_selector('body > header > div > aside > div > nav > ul > li:nth-child(2) > a')
+signInButton = edgeBrowser.find_element_by_link_text('Sign in')
 signInButton.click()
 time.sleep(2)
 
 # Click the new message button.
-newMsgButton = edgeBrowser.find_element_by_css_selector('''#app > div > div._3KAPMPOz8KsW24ooeUflK2 > div._2jR8Yc0t2ByBbcz_HIGqZ4 > div._1TpU2KF6f_EeQiytBaYj8I > div > div > div._3mBjlqTqXMUiRuuWRKCPtX.css-42 > div.root-40.body-41 > div > div > div > div > div > div.ms-OverflowSet.ms-CommandBar-primaryCommand.primarySet-61 > div > div > button''')
+# TODO: Fix this
+newMsgButton = edgeBrowser.find_element_by_css_selector('div.root-40 > span')
 newMsgButton.click()
 time.sleep(2)
 
