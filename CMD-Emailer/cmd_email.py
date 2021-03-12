@@ -15,7 +15,7 @@ if not len(sys.argv) > 1:
 # Create the browser object.
 edgeBrowser = webdriver.Edge()
 edgeBrowser.get('https://outlook.live.com/mail/')       # Open the browser to outlook website.
-time.sleep(2)
+#time.sleep(2)
 
 # Sign-in to my default account.
 signInButton = edgeBrowser.find_element_by_link_text('Sign in')
@@ -23,8 +23,7 @@ signInButton.click()
 time.sleep(2)
 
 # Click the new message button.
-# TODO: Fix this
-newMsgButton = edgeBrowser.find_element_by_css_selector('div.root-40 > span')
+newMsgButton = edgeBrowser.find_element_by_css_selector('div.root-40 > button > span')
 newMsgButton.click()
 time.sleep(2)
 
