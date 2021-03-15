@@ -4,8 +4,8 @@
 #   - Opens the web browser to 9anime.to for watching anime One Piece.
 #   - Tracks the current episode or can feed cmd arguments for the episode.
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
+import pyinputplus as pyip
 import sys, shelve, os, re
 
 epsRE = re.compile(r'\d+$')
@@ -14,7 +14,7 @@ shelfPath = os.path.join(os.getcwd(), r'Python-Mini-Projects\Opening-OP-Eps')
 shelfFileName = 'currentEps'
 
 class MyListener(AbstractEventListener):
-    def before_close(self, driver):
+    def before_quit(self, driver):
         updateNextEps(epsRE.search(driver.current_url).group())
         print('Next episode updated to {nextEps}'.format(nextEps=getEps()))
 
@@ -34,9 +34,11 @@ def getEps():
     return currentEps
 
 def main(eps):
-    edgeDriver = EventFiringWebDriver(webdriver.Edge(), MyListener())
+    edgeDriver = EventFiringWebDriver(MyEdge(), MyListener())
     edgeDriver.get(URL + eps)
-
+    pyip.inputYesNo(prompt='Stop Watching? [Y] Yes [N] No')
+    edgeDriver.quit()
+    
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         main(eps=sys.argv[1])
